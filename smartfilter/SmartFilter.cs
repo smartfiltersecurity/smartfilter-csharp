@@ -92,42 +92,41 @@ namespace smartfilter
 			}
 		}
 
-		// Endpoint: /key/detect
-		public dynamic Detect(string input, string whitelist)
+		// Endpoint: /rule/verify
+		public bool VerifyRule(string ruleKey)
 		{
 			var client = new RestClient(this.apiBase);
 			client.AddHandler("application/json", new RestSharp.Deserializers.DynamicJsonDeserializer());
 
-			var request = new RestRequest("/xss/detect", Method.POST);
+			var request = new RestRequest("/rule/verify", Method.GET);
 			request.RequestFormat = DataFormat.Json;
 			request.AddParameter("api_key", this.key);
-			request.AddParameter("input", input);
-			request.AddParameter("whitelist_id", whitelist);
+			request.AddParameter("rule_key", ruleKey);
 
 			var response = client.Execute<dynamic>(request);
 			int status = (int)response.StatusCode;
-			
+
 			switch (status)
 			{
-			case 200:
-				return response.Data;
-			case 400:
+				case 200:
+				return true;
+				case 400:
 				throw new BadInputParameter();
-			case 403:
+				case 403:
 				throw new BadApiKey();
-			case 413:
+				case 413:
 				throw new RequestTooLarge();
-			case 500:
+				case 500:
 				throw new InternalError();
-			case 507:
+				case 507:
 				throw new AccountQuotaExceeded();
-			default:
+				default:
 				throw new NetworkException();
 			}
 		}
 
 		// Endpoint: /key/filter
-		public dynamic Filter(string input, string whitelist)
+		public dynamic Filter(string input, string ruleKey)
 		{
 			var client = new RestClient(this.apiBase);
 			client.AddHandler("application/json", new RestSharp.Deserializers.DynamicJsonDeserializer());
@@ -136,7 +135,7 @@ namespace smartfilter
 			request.RequestFormat = DataFormat.Json;
 			request.AddParameter("api_key", this.key);
 			request.AddParameter("input", input);
-			request.AddParameter("whitelist_id", whitelist);
+			request.AddParameter("rule_key", ruleKey);
 			
 			var response = client.Execute<dynamic>(request);
 			int status = (int)response.StatusCode;

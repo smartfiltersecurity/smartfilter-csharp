@@ -7,17 +7,17 @@ namespace smartfilter
 	{
 		public static void Main (string[] args)
 		{
-			var key = "key goes here";
-			var whitelist = "whitelist goes here";
-			var input = "the <script>alert('quick brown fox');</script> jumps over the lazy dog";
-			var sf = new SmartFilter(key);
+			var apiKey = "api key goes here";
+			var ruleKey = "rule key goes here";
+			var input = "the <script>alert('quick brown fox');</script> jumps over the lazy dog & mouse";
+			var sf = new SmartFilter(apiKey);
 
 			try
 			{
 				Console.WriteLine("Verify: " + sf.Verify());
 				Console.WriteLine("Info: " + sf.Info());
-				Console.WriteLine("Detect: " + sf.Detect(input, whitelist));
-				Console.WriteLine("Filter: " + sf.Filter(input, whitelist));
+				Console.WriteLine("Verify Rule: " + sf.VerifyRule(ruleKey));
+				Console.WriteLine("Filter: " + sf.Filter(input, ruleKey));
 			}
 			catch (NetworkException) 
 			{
