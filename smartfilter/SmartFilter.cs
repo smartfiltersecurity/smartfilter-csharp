@@ -29,7 +29,7 @@ namespace smartfilter
 		public SmartFilter(string key)
 		{
 			this.key = key;
-			this.apiBase = "http://api.prevoty.com/1";
+			this.apiBase = "https://api.prevoty.com/1";
 		}
 
 		// Endpoint: /key/verify
