@@ -125,7 +125,7 @@ namespace smartfilter
 			}
 		}
 
-		// Endpoint: /key/filter
+		// Endpoint: /xss/filter
 		public dynamic Filter(string input, string ruleKey)
 		{
 			var client = new RestClient(this.apiBase);
