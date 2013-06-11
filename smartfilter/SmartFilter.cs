@@ -139,8 +139,6 @@ namespace smartfilter
 			
 			var response = client.Execute<dynamic>(request);
 			int status = (int)response.StatusCode;
-
-			Console.WriteLine(response.Content);
 			
 			switch (status)
 			{
